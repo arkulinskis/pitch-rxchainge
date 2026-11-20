@@ -1,0 +1,13 @@
+<div class="tr-host">
+  <button type="button" class="tr" anvil:name="btn" anvil:on-dom:click="self.btn_click">
+    <span class="tr-q">
+      <anvil-component type="Label" name="q_en" prop:role='["tr-q-en"]'></anvil-component>
+      <anvil-component type="Label" name="q_fr" prop:role='["tr-q-fr"]'></anvil-component>
+    </span>
+    <span class="tr-side">
+      <anvil-component type="Label" name="status" prop:role='["badge"]'></anvil-component>
+      <anvil-component type="Label" name="fr_badge" prop:text="French missing" prop:role='["badge", "badge-warn"]'></anvil-component>
+    </span>
+    <anvil-component type="Label" name="meta" prop:role='["fine-print", "tr-meta"]'></anvil-component>
+  </button>
+</div>

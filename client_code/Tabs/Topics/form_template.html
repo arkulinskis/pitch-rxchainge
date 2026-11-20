@@ -1,0 +1,28 @@
+<div class="tb tp">
+  <div class="tb-head">
+    <div>
+      <h2 class="tb-h">Topics</h2>
+      <p class="muted tb-lead">Each topic is a question people ask and the answer the expert approved, in English and French. Only approved topics ever reach the public agent.</p>
+    </div>
+    <anvil-component type="Button" name="new_button" prop:text="New topic" prop:role='["btn", "btn-primary", "ic-plus"]'></anvil-component>
+  </div>
+  <div class="ui-seg tp-filter" role="group" aria-label="Show topics">
+    <button type="button" data-f="all" anvil:name="f_all" anvil:on-dom:click="self.filter_click">All</button>
+    <button type="button" data-f="draft" anvil:name="f_draft" anvil:on-dom:click="self.filter_click">Drafts</button>
+    <button type="button" data-f="in_review" anvil:name="f_in_review" anvil:on-dom:click="self.filter_click">In review</button>
+    <button type="button" data-f="changes" anvil:name="f_changes" anvil:on-dom:click="self.filter_click">Changes asked</button>
+    <button type="button" data-f="approved" anvil:name="f_approved" anvil:on-dom:click="self.filter_click">Approved</button>
+  </div>
+  <anvil-component type="RepeatingPanel" name="topic_panel" prop:item_template="Agent_Studio.Items.TopicRow" prop:role='["tp-list"]'></anvil-component>
+  <div class="ui-empty" anvil:name="empty">
+    <i class="ic ic-chat"></i>
+    <h3 anvil:name="empty_h">No topics here</h3>
+    <p>Add the questions people ask most. Draft each answer from your sources, then send it to the expert.</p>
+  </div>
+
+  <section class="tp-gaps" anvil:name="gaps_sec">
+    <h2 class="tb-h">Asked, not answered</h2>
+    <p class="muted tb-lead">Questions people put to the agent that no approved topic covered. Turn the good ones into topics.</p>
+    <anvil-component type="RepeatingPanel" name="gap_panel" prop:item_template="Agent_Studio.Items.GapRow" prop:role='["tp-gap-list"]'></anvil-component>
+  </section>
+</div>

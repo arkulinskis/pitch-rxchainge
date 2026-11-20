@@ -1,0 +1,27 @@
+---
+custom_component: true
+toolbox_item:
+  title: Landing demo face
+  group: Agent Studio
+help_text: |
+  The landing page's moving hero: a demo guide's face answers its own sample questions, alternating English and
+  French, with the "Approved by" stamp. Call setup(guides) with get_landing()["guides"]. The first question and answer
+  show at once, so the hero is complete even before (or without) the animation.
+---
+<div class="hd">
+  <div class="hd-stage">
+    <div class="hd-face"><anvil-component type="Agent_Studio.Components.Face" name="face" prop:live="true"></anvil-component></div>
+    <div class="hd-talk" aria-live="off">
+      <div class="hd-q" anvil:name="q_box"><anvil-component type="Label" name="q_text" prop:role='["hd-q-text"]'></anvil-component></div>
+      <div class="hd-a" anvil:name="a_box">
+        <anvil-component type="Label" name="who" prop:role='["hd-who"]'></anvil-component>
+        <anvil-component type="Label" name="a_text" prop:role='["hd-a-text"]'></anvil-component>
+        <span class="hd-stamp" anvil:name="stamp"><i class="ic ic-check"></i><span anvil:name="stamp_text"></span></span>
+      </div>
+    </div>
+  </div>
+  <div class="hd-bar">
+    <anvil-component type="RepeatingPanel" name="guide_panel" prop:item_template="Agent_Studio.Items.GuidePick" prop:role='["hd-guides"]'></anvil-component>
+    <a class="hd-talk-link" anvil:name="talk_link"><span anvil:name="talk_text">Talk to her yourself</span><i class="ic ic-arrow"></i></a>
+  </div>
+</div>

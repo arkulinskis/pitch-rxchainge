@@ -1,0 +1,44 @@
+---
+custom_component: true
+events:
+  - name: asked
+    description: A question was answered (the reply dict is in `reply`)
+    parameters:
+      - name: reply
+toolbox_item:
+  title: Agent chat
+  group: Agent Studio
+help_text: |
+  Talk to an agent: its live face, English/French switch, voice switch, suggested questions, the conversation and the
+  question box. Call setup(view, ref, mode) with the agent's public view (get_public_agent or the editor's data),
+  ref = slug ("live") or agent id ("preview": the editor's Try tab).
+---
+<div class="as-chat">
+  <div class="as-chat-stage">
+    <div class="as-chat-face">
+      <anvil-component type="Agent_Studio.Components.Face" name="face" prop:live="true"></anvil-component>
+    </div>
+    <div class="as-chat-id">
+      <anvil-component type="Label" name="name_label" prop:role='["chat-name"]'></anvil-component>
+      <anvil-component type="Label" name="tagline_label" prop:role='["chat-tag"]'></anvil-component>
+      <div class="as-chat-tools">
+        <div class="ui-seg" role="group" aria-label="Language">
+          <button type="button" anvil:name="lang_en" anvil:on-dom:click="self.lang_click" data-lang="en">English</button>
+          <button type="button" anvil:name="lang_fr" anvil:on-dom:click="self.lang_click" data-lang="fr">Français</button>
+        </div>
+        <button type="button" class="as-voice" anvil:name="voice_btn" anvil:on-dom:click="self.voice_click" aria-pressed="false"><i class="ic ic-volume"></i><span anvil:name="voice_text">Voice off</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="as-chat-log" anvil:name="log" aria-live="polite">
+    <anvil-component type="RepeatingPanel" name="msg_panel" prop:item_template="Agent_Studio.Items.Message" prop:role='["as-msgs"]'></anvil-component>
+    <div class="as-typing" anvil:name="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+  <anvil-component type="RepeatingPanel" name="suggest_panel" prop:item_template="Agent_Studio.Items.Suggest" prop:role='["as-chips"]'></anvil-component>
+  <div class="as-ask">
+    <label class="ui-sr" for="as-ask-box">Your question</label>
+    <anvil-component type="TextBox" name="ask_box" prop:placeholder="Ask a question" prop:role='["as-ask-box"]'></anvil-component>
+    <anvil-component type="Button" name="ask_button" prop:text="Ask" prop:role='["btn", "btn-primary", "ic-arrow"]'></anvil-component>
+  </div>
+  <anvil-component type="Label" name="foot" prop:role='["fine-print", "as-chat-foot"]'></anvil-component>
+</div>

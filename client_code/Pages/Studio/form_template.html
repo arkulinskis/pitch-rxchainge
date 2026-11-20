@@ -1,0 +1,39 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap st-page">
+      <div class="ui-page-head">
+        <div>
+          <anvil-component type="Label" name="title" prop:role='["page-title"]' prop:text="Your studio"></anvil-component>
+          <anvil-component type="Label" name="sub" prop:role='["fine-print"]'></anvil-component>
+        </div>
+        <anvil-component type="Button" name="new_button" prop:text="New agent" prop:role='["btn", "btn-primary", "ic-plus"]'></anvil-component>
+      </div>
+
+      <section class="st-sec" anvil:name="mine_sec">
+        <anvil-component type="RepeatingPanel" name="mine_panel" prop:item_template="Agent_Studio.Items.AgentCard" prop:role='["agent-grid"]'></anvil-component>
+      </section>
+      <div class="st-empty" anvil:name="empty">
+        <div class="st-empty-faces" anvil:name="empty_faces">
+          <anvil-component type="RepeatingPanel" name="empty_panel" prop:item_template="Agent_Studio.Items.TemplateCard" prop:role='["tpl-row"]'></anvil-component>
+        </div>
+        <div class="st-empty-text">
+          <h2>Make your first agent</h2>
+          <p>Start from one of the demo guides (its sources and topics come along as drafts for your expert to approve) or from a blank page.</p>
+          <anvil-component type="Button" name="blank_button" prop:text="Start from a blank page" prop:role='["btn"]'></anvil-component>
+        </div>
+      </div>
+
+      <section class="st-sec" anvil:name="review_sec">
+        <h2 class="st-h">Agents you review</h2>
+        <p class="muted st-note">You were invited as the expert. Approve their answers before they go live.</p>
+        <anvil-component type="RepeatingPanel" name="review_panel" prop:item_template="Agent_Studio.Items.AgentCard" prop:role='["agent-grid"]'></anvil-component>
+      </section>
+
+      <section class="st-sec" anvil:name="demo_sec">
+        <h2 class="st-h">Demo agents</h2>
+        <p class="muted st-note">Three Montréal restaurant guides, live and answering. Open one to see how it was made, or talk to it.</p>
+        <anvil-component type="RepeatingPanel" name="demo_panel" prop:item_template="Agent_Studio.Items.AgentCard" prop:role='["agent-grid"]'></anvil-component>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

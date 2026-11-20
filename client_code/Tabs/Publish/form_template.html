@@ -1,0 +1,31 @@
+<div class="tb pb">
+  <div class="pb-live ui-card flat" anvil:name="live_card">
+    <div class="grow">
+      <anvil-component type="Label" name="live_title" prop:role='["card-title"]'></anvil-component>
+      <anvil-component type="Label" name="live_line" prop:role='["fine-print"]'></anvil-component>
+      <div class="pb-link" anvil:name="link_row">
+        <anvil-component type="TextBox" name="link_box" prop:role='["pb-link-box"]'></anvil-component>
+        <anvil-component type="Button" name="copy_button" prop:text="Copy link" prop:role='["btn", "ic-copy"]'></anvil-component>
+        <a class="ui-btn" anvil:name="open_link" target="_blank" rel="noopener"><i class="ic ic-external"></i>Open</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pb-next ui-card flat" anvil:name="next_card">
+    <div class="grow">
+      <h2 class="tb-h">Publish a new version</h2>
+      <anvil-component type="Label" name="next_line" prop:role='["pb-next-line"]'></anvil-component>
+    </div>
+    <anvil-component type="Button" name="publish_button" prop:text="Publish" prop:role='["btn", "btn-primary", "btn-lg", "ic-globe"]'></anvil-component>
+  </div>
+
+  <h2 class="tb-h pb-h">Versions</h2>
+  <p class="muted tb-lead">Every publish is kept. Something wrong with the latest? Make an earlier version live again in one click: nothing is deleted.</p>
+  <anvil-component type="RepeatingPanel" name="ver_panel" prop:item_template="Agent_Studio.Items.VersionRow" prop:role='["pb-list"]'></anvil-component>
+  <div class="ui-empty" anvil:name="no_versions">
+    <i class="ic ic-globe"></i>
+    <h3>Not published yet</h3>
+    <p>Approve a few topics, then publish: the public page only ever answers from a published version.</p>
+  </div>
+  <anvil-component type="Button" name="unpublish_button" prop:text="Take it offline" prop:role='["btn", "btn-danger", "btn-sm"]'></anvil-component>
+</div>

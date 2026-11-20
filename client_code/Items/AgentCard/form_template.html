@@ -1,0 +1,13 @@
+<div class="ac-host">
+  <a class="ac" anvil:name="link">
+    <span class="ac-face"><anvil-component type="Agent_Studio.Components.Face" name="face"></anvil-component></span>
+    <span class="ac-body">
+      <span class="ac-top">
+        <anvil-component type="Label" name="name" prop:role='["card-title"]' bind:text="self.item['name']"></anvil-component>
+        <anvil-component type="Label" name="status" prop:role='["badge"]'></anvil-component>
+      </span>
+      <anvil-component type="Label" name="tagline" prop:role='["ac-tag"]' bind:text="self.item['tagline'] or 'No tagline yet'"></anvil-component>
+      <anvil-component type="Label" name="meta" prop:role='["fine-print"]'></anvil-component>
+    </span>
+  </a>
+</div>

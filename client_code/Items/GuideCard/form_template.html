@@ -1,0 +1,11 @@
+<div class="gc-host">
+  <a class="gc" anvil:name="link">
+    <span class="gc-face"><anvil-component type="Agent_Studio.Components.Face" name="face"></anvil-component></span>
+    <span class="gc-body">
+      <anvil-component type="Label" name="name" prop:role='["gc-name"]' bind:text="self.item['name']"></anvil-component>
+      <anvil-component type="Label" name="tagline" prop:role='["gc-tag"]' bind:text="self.item['tagline_en']"></anvil-component>
+      <anvil-component type="Label" name="expert" prop:role='["fine-print"]'></anvil-component>
+      <span class="gc-go">Talk to <span anvil:name="go_name"></span><i class="ic ic-arrow"></i></span>
+    </span>
+  </a>
+</div>

@@ -1,0 +1,6 @@
+<div class="as-msg-row">
+  <div class="as-msg" anvil:name="bubble">
+    <anvil-component type="Label" name="text" prop:role='["as-msg-text"]' bind:text="self.item['text']"></anvil-component>
+    <anvil-component type="Label" name="by" prop:role='["as-msg-by"]' bind:text="self.item.get('by') or ''" bind:visible="bool(self.item.get('by'))"></anvil-component>
+  </div>
+</div>

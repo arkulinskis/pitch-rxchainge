@@ -1,0 +1,19 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap rv-page">
+      <div class="ui-page-head">
+        <div>
+          <anvil-component type="Label" name="title" prop:role='["page-title"]' prop:text="Waiting for your approval"></anvil-component>
+          <anvil-component type="Label" name="sub" prop:role='["fine-print"]'></anvil-component>
+        </div>
+      </div>
+      <anvil-component type="RepeatingPanel" name="queue_panel" prop:item_template="Agent_Studio.Items.ReviewRow" prop:role='["rv-list"]'></anvil-component>
+      <div class="ui-empty" anvil:name="empty">
+        <i class="ic ic-check"></i>
+        <h2>Nothing waiting for you</h2>
+        <p>When a writer sends a topic for review on an agent you approve for, it lands here with both languages side by side.</p>
+        <a class="ui-btn" href="#studio">Back to the studio</a>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

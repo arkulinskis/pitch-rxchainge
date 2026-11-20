@@ -1,0 +1,89 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="page-landing">
+      <section class="lp-hero">
+        <div class="ui-wrap">
+          <div class="lp-copy">
+            <h1>An expert's knowledge, <em>with a face</em></h1>
+            <p class="lp-lead">Agent Studio turns what one expert knows into a talking agent that answers in English and French, and only ever says what that expert approved.</p>
+            <div class="lp-cta" anvil:name="guest_cta">
+              <a class="ui-btn primary lg" href="#auth/signup">Build an agent <i class="ic ic-arrow"></i></a>
+              <a class="ui-btn lg" href="#talk/demo-classics">Talk to a guide</a>
+            </div>
+            <div class="lp-cta" anvil:name="member_cta">
+              <a class="ui-btn primary lg" href="#studio">Open your studio <i class="ic ic-arrow"></i></a>
+              <a class="ui-btn lg" href="#talk/demo-classics">Talk to a guide</a>
+            </div>
+            <div class="lp-proof">
+              <span><i class="ic ic-check"></i>Nothing goes live unapproved</span>
+              <span><i class="ic ic-check"></i>English and French side by side</span>
+              <span><i class="ic ic-check"></i>One-click rollback</span>
+            </div>
+          </div>
+          <div class="lp-art">
+            <anvil-component type="Agent_Studio.Components.HeroDemo" name="hero_demo"></anvil-component>
+            <div class="lp-art-fallback" anvil:name="fallback" aria-hidden="true">
+              <div class="lp-fallback-face" anvil:name="fallback_face"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section" id="how">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>From an expert's notes to a face people trust</h2><p>Four steps, and the expert holds the pen at the one that matters.</p></div>
+          <ol class="lp-flow">
+            <li><h3>Give it a face</h3><p>Pick a look, a tone and a voice. Start from a template or a blank page.</p></li>
+            <li><h3>Feed it sources</h3><p>Paste the expert's notes, guides and FAQs, in English or French.</p></li>
+            <li><h3>Draft, then approve</h3><p>Each answer is drafted from those sources and approved by the expert, in both languages.</p></li>
+            <li><h3>Publish and listen</h3><p>Share the link. See what people asked that it couldn't answer, and turn it into the next topic.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="lp-section lp-guides-sec">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Meet the demo guides</h2><p>Three invented guides to Montréal's restaurants, each with an invented expert behind every answer. The restaurants are real; the studio works the same for any subject.</p></div>
+          <anvil-component type="RepeatingPanel" name="guides_panel" prop:item_template="Agent_Studio.Items.GuideCard" prop:role='["lp-guides"]'></anvil-component>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Built so the expert stays in charge</h2></div>
+          <div class="lp-feats">
+            <div class="lp-feature"><i class="ic ic-shield"></i><h3>Approval before anything goes live</h3><p>Drafts, reviews and approvals are separate steps. Editing an approved answer sends it back to draft.</p></div>
+            <div class="lp-feature"><i class="ic ic-globe"></i><h3>English and French, side by side</h3><p>Every question and answer is written in both, and an answer can't be approved with one language missing.</p></div>
+            <div class="lp-feature"><i class="ic ic-refresh"></i><h3>Versions and one-click rollback</h3><p>Each publish is kept. Put an earlier version back live in one click, and nothing is deleted.</p></div>
+            <div class="lp-feature"><i class="ic ic-inbox"></i><h3>Gaps become topics</h3><p>Questions it couldn't answer are collected for the team, ready to turn into the next approved topic.</p></div>
+            <div class="lp-feature"><i class="ic ic-users"></i><h3>A queue for the expert</h3><p>Invite the expert by email. They see only what's waiting for them, with both languages side by side.</p></div>
+            <div class="lp-feature"><i class="ic ic-x"></i><h3>Polite refusals</h3><p>List the subjects it must not touch. It says so plainly instead of guessing.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-head"><h2>Questions</h2></div>
+          <div class="lp-faq">
+            <details><summary>Can the agent make things up?</summary><p>No. It answers only with topics the expert approved: it matches the question to an approved topic and gives that answer word for word. If nothing fits, it says it doesn't know yet and logs the question for the team.</p></details>
+            <details><summary>Does it use an AI model?</summary><p>Not in this version. Drafting picks the sentences from your sources that fit the question, and matching is done with plain rules. An AI model could draft and match better later, behind the same approval step.</p></details>
+            <details><summary>Who are Mireille, Théo and Margaux?</summary><p>Invented guides with invented experts, made to show the studio. The restaurants they mention are real and described with long-known facts only. Always check opening hours before you go.</p></details>
+            <details><summary>Can I use it for something other than restaurants?</summary><p>Yes. The studio doesn't care what the knowledge is about: a museum's collection, a clinic's patient leaflets, a product manual. Start from a blank page.</p></details>
+            <details><summary>Who can see what I make?</summary><p>Your agents are private to you and the expert you invite until you publish. A published agent can be reached by anyone with its link. The Privacy &amp; Terms page has the details.</p></details>
+            <details><summary>Does the voice work everywhere?</summary><p>The face moves its lips on every device. Reading aloud uses the visitor's own browser voices, so it depends on the device and is off until the visitor turns it on.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div class="ui-wrap">
+          <div class="lp-band">
+            <div><h2>Make your first agent</h2><p>Start from a guide template and have it talking in a few minutes.</p></div>
+            <a class="ui-btn lg" href="#auth/signup" anvil:name="band_link">Build an agent</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

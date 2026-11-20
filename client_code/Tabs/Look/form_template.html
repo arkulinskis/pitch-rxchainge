@@ -1,0 +1,42 @@
+<div class="tb lk">
+  <div class="lk-grid">
+    <div class="lk-stage">
+      <div class="lk-face"><anvil-component type="Agent_Studio.Components.Face" name="face" prop:live="true"></anvil-component></div>
+      <div class="ui-row lk-stage-btns">
+        <anvil-component type="Button" name="hello_en" prop:text="Say hello" prop:role='["btn", "btn-sm", "ic-chat"]'></anvil-component>
+        <anvil-component type="Button" name="hello_fr" prop:text="Dis bonjour" prop:role='["btn", "btn-sm", "ic-chat"]'></anvil-component>
+        <anvil-component type="Button" name="shuffle_button" prop:text="Shuffle" prop:role='["btn", "btn-sm", "ic-dice"]'></anvil-component>
+      </div>
+      <div class="lk-voice">
+        <h2 class="tb-h3">Voice</h2>
+        <p class="muted small" anvil:name="voice_note">Read aloud by the visitor's browser, in English or Canadian French when the device has those voices.</p>
+        <label class="lk-range"><span>Speed</span><input type="range" min="0.7" max="1.4" step="0.05" anvil:name="rate" anvil:on-dom:input="self.voice_input"><output anvil:name="rate_out"></output></label>
+        <label class="lk-range"><span>Pitch</span><input type="range" min="0.5" max="1.6" step="0.05" anvil:name="pitch" anvil:on-dom:input="self.voice_input"><output anvil:name="pitch_out"></output></label>
+        <label class="ui-check lk-hear"><input type="checkbox" anvil:name="hear"><span>Read "Say hello" aloud</span></label>
+      </div>
+    </div>
+    <div class="lk-controls">
+      <div class="lk-group"><h2 class="tb-h3" id="lk-skin">Skin</h2>
+        <anvil-component type="RepeatingPanel" name="p_skin" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Hair</h2>
+        <anvil-component type="RepeatingPanel" name="p_hairStyle" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component>
+        <anvil-component type="RepeatingPanel" name="p_hair" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks", "lk-colors"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Eyes and brows</h2>
+        <anvil-component type="RepeatingPanel" name="p_eyes" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component>
+        <anvil-component type="RepeatingPanel" name="p_brows" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Glasses</h2>
+        <anvil-component type="RepeatingPanel" name="p_glasses" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Accessory</h2>
+        <anvil-component type="RepeatingPanel" name="p_accessory" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Top</h2>
+        <anvil-component type="RepeatingPanel" name="p_shirt" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-group"><h2 class="tb-h3">Background</h2>
+        <anvil-component type="RepeatingPanel" name="p_bg" prop:item_template="Agent_Studio.Items.Pick" prop:role='["lk-picks"]'></anvil-component></div>
+      <div class="lk-save">
+        <anvil-component type="Label" name="dirty_label" prop:role='["fine-print"]'></anvil-component>
+        <anvil-component type="Button" name="reset_button" prop:text="Undo changes" prop:role='["btn", "btn-ghost"]'></anvil-component>
+        <anvil-component type="Button" name="save_button" prop:text="Save face and voice" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+      </div>
+    </div>
+  </div>
+</div>

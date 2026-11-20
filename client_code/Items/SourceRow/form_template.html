@@ -1,0 +1,13 @@
+<div class="ui-item sr-row">
+  <i class="ic ic-book sr-ic" aria-hidden="true"></i>
+  <div class="grow">
+    <div class="ui-row sr-top">
+      <anvil-component type="Label" name="title" prop:role='["strong", "sr-title"]' bind:text="self.item['title']"></anvil-component>
+      <anvil-component type="Label" name="kind" prop:role='["badge"]'></anvil-component>
+      <anvil-component type="Label" name="lang" prop:role='["badge", "badge-brand"]'></anvil-component>
+    </div>
+    <anvil-component type="Label" name="preview" prop:role='["sr-preview"]'></anvil-component>
+    <anvil-component type="Label" name="meta" prop:role='["fine-print"]'></anvil-component>
+  </div>
+  <anvil-component type="Button" name="delete_button" prop:text="Delete source" prop:role='["btn", "btn-icon", "ic-trash"]'></anvil-component>
+</div>

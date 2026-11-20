@@ -1,0 +1,40 @@
+<div class="tb kn">
+  <div class="kn-grid">
+    <section class="kn-sources">
+      <div class="tb-head">
+        <div>
+          <h2 class="tb-h">Sources</h2>
+          <p class="muted tb-lead">Guides, notes, FAQs and leaflets the expert trusts. Drafts are built only from these, sentence by sentence, and say which source they used.</p>
+        </div>
+        <anvil-component type="Button" name="add_button" prop:text="Add a source" prop:role='["btn", "btn-primary", "ic-plus"]'></anvil-component>
+      </div>
+      <anvil-component type="RepeatingPanel" name="src_panel" prop:item_template="Agent_Studio.Items.SourceRow" prop:role='["kn-list"]'></anvil-component>
+      <div class="ui-empty" anvil:name="no_sources">
+        <i class="ic ic-book"></i>
+        <h3>No sources yet</h3>
+        <p>Paste the expert's notes or upload a text file. One page of good notes is enough to start drafting.</p>
+      </div>
+    </section>
+    <section class="ui-card flat kn-rules">
+      <h2 class="tb-h">What it covers</h2>
+      <div class="ui-stack">
+        <label class="ui-field"><span>Scope <em>English</em></span>
+          <anvil-component type="TextArea" name="scope_en" prop:height="90"></anvil-component>
+        </label>
+        <label class="ui-field" lang="fr"><span>Portée <em>français</em></span>
+          <anvil-component type="TextArea" name="scope_fr" prop:height="90"></anvil-component>
+        </label>
+      </div>
+      <h3 class="tb-h3 kn-refuse-h">Subjects it politely refuses</h3>
+      <p class="muted small">If a question touches one of these, the agent says it can't help with that instead of guessing.</p>
+      <anvil-component type="RepeatingPanel" name="refuse_panel" prop:item_template="Agent_Studio.Items.RefuseChip" prop:role='["kn-refuse"]'></anvil-component>
+      <div class="kn-add" anvil:name="refuse_add">
+        <anvil-component type="TextBox" name="refuse_box" prop:placeholder="For example: allergy advice"></anvil-component>
+        <anvil-component type="Button" name="refuse_button" prop:text="Add" prop:role='["btn", "ic-plus"]'></anvil-component>
+      </div>
+      <div class="ui-row end kn-save">
+        <anvil-component type="Button" name="save_button" prop:text="Save" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+      </div>
+    </section>
+  </div>
+</div>

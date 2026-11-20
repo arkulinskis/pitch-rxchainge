@@ -1,0 +1,40 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap ag-page">
+      <a href="#studio" class="ag-back"><i class="ic ic-back"></i>Studio</a>
+      <div class="ui-empty" anvil:name="missing">
+        <i class="ic ic-lock"></i>
+        <h2>This agent isn't here</h2>
+        <p>It was deleted, or it belongs to someone who hasn't invited you.</p>
+        <a class="ui-btn" href="#studio">Back to the studio</a>
+      </div>
+      <div anvil:name="main">
+        <div class="ag-head">
+          <span class="ag-face"><anvil-component type="Agent_Studio.Components.Face" name="face"></anvil-component></span>
+          <div class="ag-id">
+            <div class="ag-title-row">
+              <anvil-component type="Label" name="title" prop:role='["page-title"]'></anvil-component>
+              <anvil-component type="Label" name="status" prop:role='["badge"]'></anvil-component>
+              <anvil-component type="Label" name="role_badge" prop:role='["badge", "badge-brand"]'></anvil-component>
+            </div>
+            <anvil-component type="Label" name="tagline" prop:role='["ag-tag"]'></anvil-component>
+          </div>
+          <a class="ui-btn ag-public" anvil:name="public_link" target="_blank" rel="noopener"><i class="ic ic-external"></i>Public page</a>
+        </div>
+        <div class="ag-viewer" anvil:name="viewer_note">
+          <p>This is a demo agent: look around as much as you like. To change anything, make your own copy (its topics come back as drafts for your expert).</p>
+          <anvil-component type="Button" name="copy_button" prop:text="Make my own copy" prop:role='["btn", "btn-primary", "ic-copy"]'></anvil-component>
+        </div>
+        <div class="ui-tabs ag-tabs" role="group" aria-label="Agent sections">
+          <button type="button" data-tab="overview" anvil:name="t_overview" anvil:on-dom:click="self.tab_click"><i class="ic ic-home"></i>Overview</button>
+          <button type="button" data-tab="look" anvil:name="t_look" anvil:on-dom:click="self.tab_click"><i class="ic ic-smile"></i>Face &amp; voice</button>
+          <button type="button" data-tab="knowledge" anvil:name="t_knowledge" anvil:on-dom:click="self.tab_click"><i class="ic ic-book"></i>Knowledge</button>
+          <button type="button" data-tab="topics" anvil:name="t_topics" anvil:on-dom:click="self.tab_click"><i class="ic ic-chat"></i>Topics<span class="count" anvil:name="topics_count"></span></button>
+          <button type="button" data-tab="try" anvil:name="t_try" anvil:on-dom:click="self.tab_click"><i class="ic ic-volume"></i>Try it</button>
+          <button type="button" data-tab="publish" anvil:name="t_publish" anvil:on-dom:click="self.tab_click"><i class="ic ic-globe"></i>Publish</button>
+        </div>
+        <anvil-component type="LinearPanel" name="tab_panel" prop:role='["ag-tab-body"]'></anvil-component>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

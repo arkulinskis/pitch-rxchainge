@@ -1,0 +1,7 @@
+<div class="tc-host">
+  <button type="button" class="tc" anvil:name="btn" anvil:on-dom:click="self.btn_click">
+    <span class="tc-face"><anvil-component type="Agent_Studio.Components.Face" name="face"></anvil-component></span>
+    <anvil-component type="Label" name="name" prop:role='["tc-name"]' bind:text="self.item['name']"></anvil-component>
+    <anvil-component type="Label" name="tagline" prop:role='["tc-tag"]' bind:text="self.item['tagline']"></anvil-component>
+  </button>
+</div>

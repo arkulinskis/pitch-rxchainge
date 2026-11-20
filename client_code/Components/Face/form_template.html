@@ -1,0 +1,19 @@
+---
+custom_component: true
+properties:
+  - name: face
+    type: object
+    description: The look (skin, hair, hairStyle, eyes, brows, glasses, accessory, shirt, bg, voice). None draws the default face.
+    default_binding_prop: true
+  - name: live
+    type: boolean
+    default_value: false
+    description: True = it blinks, glances at the pointer and can talk (one per screen is plenty); False = a still picture
+toolbox_item:
+  title: Agent face
+  group: Agent Studio
+help_text: |
+  An agent's face, drawn by the face engine (theme/assets/as-face.js). Size it with a class on a wrapper; the SVG fills
+  its box. Live faces have say(text, lang, speak), think(on) and stop().
+---
+<div class="as-face"></div>

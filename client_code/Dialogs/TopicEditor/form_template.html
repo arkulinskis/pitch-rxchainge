@@ -1,0 +1,48 @@
+<div class="ui te">
+  <div class="te-head">
+    <h2 class="dlg-h" anvil:name="heading">Topic</h2>
+    <anvil-component type="Label" name="status" prop:role='["badge"]'></anvil-component>
+  </div>
+  <anvil-component type="Label" name="note" prop:role='["msg-note"]' prop:visible="false"></anvil-component>
+  <div class="te-cols">
+    <div class="te-col">
+      <h3 class="te-lang">English</h3>
+      <label class="ui-field"><span>Question</span>
+        <anvil-component type="TextBox" name="q_en" prop:placeholder="Where do I get the best smoked meat?"></anvil-component>
+      </label>
+      <label class="ui-field"><span>Answer</span>
+        <anvil-component type="TextArea" name="a_en" prop:height="170"></anvil-component>
+      </label>
+      <anvil-component type="Button" name="draft_en" prop:text="Draft from sources" prop:role='["btn", "btn-sm", "ic-wand"]'></anvil-component>
+    </div>
+    <div class="te-col" lang="fr">
+      <h3 class="te-lang">Français</h3>
+      <label class="ui-field"><span>Question</span>
+        <anvil-component type="TextBox" name="q_fr" prop:placeholder="Où trouver le meilleur smoked meat?"></anvil-component>
+      </label>
+      <label class="ui-field"><span>Réponse</span>
+        <anvil-component type="TextArea" name="a_fr" prop:height="170"></anvil-component>
+      </label>
+      <anvil-component type="Button" name="draft_fr" prop:text="Rédiger à partir des sources" prop:role='["btn", "btn-sm", "ic-wand"]'></anvil-component>
+    </div>
+  </div>
+  <label class="ui-field te-kw"><span>Keywords <em>(help the agent recognise the question; filled in for you if empty)</em></span>
+    <anvil-component type="TextBox" name="kw_box"></anvil-component>
+  </label>
+  <anvil-component type="Label" name="used_label" prop:role='["fine-print"]'></anvil-component>
+  <div class="te-review" anvil:name="review_box">
+    <label class="ui-field"><span>What should change?</span>
+      <anvil-component type="TextArea" name="review_note" prop:height="70" prop:placeholder="Say what to fix, so the writer knows"></anvil-component>
+    </label>
+  </div>
+  <anvil-component type="Label" name="message" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+  <div class="te-actions">
+    <anvil-component type="Button" name="delete_button" prop:text="Delete" prop:role='["btn", "btn-danger", "btn-sm", "ic-trash"]'></anvil-component>
+    <span class="ui-spacer"></span>
+    <anvil-component type="Button" name="close_button" prop:text="Close" prop:role='["btn", "btn-ghost"]'></anvil-component>
+    <anvil-component type="Button" name="save_button" prop:text="Save draft" prop:role='["btn"]'></anvil-component>
+    <anvil-component type="Button" name="submit_button" prop:text="Send for review" prop:role='["btn", "ic-arrow"]'></anvil-component>
+    <anvil-component type="Button" name="changes_button" prop:text="Ask for changes" prop:role='["btn"]'></anvil-component>
+    <anvil-component type="Button" name="approve_button" prop:text="Approve" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+  </div>
+</div>

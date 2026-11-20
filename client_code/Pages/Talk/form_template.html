@@ -1,0 +1,21 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap tk-page">
+      <div class="ui-empty" anvil:name="missing">
+        <i class="ic ic-chat"></i>
+        <h1 class="tk-missing-h">This agent isn't available</h1>
+        <anvil-component type="Label" name="missing_text" prop:role='["muted"]'></anvil-component>
+        <a class="ui-btn" href="#landing">What is Agent Studio?</a>
+      </div>
+      <div class="tk-main" anvil:name="main">
+        <h1 class="ui-sr" anvil:name="sr_title">Talk to the agent</h1>
+        <anvil-component type="Agent_Studio.Components.Chat" name="chat"></anvil-component>
+        <div class="tk-about">
+          <anvil-component type="Label" name="expert_line" prop:role='["tk-expert"]'></anvil-component>
+          <p class="muted small">Every answer here was written from the expert's own sources and approved by them before it went live. If the agent doesn't know, it says so and passes your question on. Demo content: check opening hours before you go.</p>
+          <p class="small tk-made">Made with <a href="#landing">Agent Studio</a>: turn what an expert knows into a face people can talk to.</p>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

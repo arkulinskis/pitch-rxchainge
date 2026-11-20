@@ -1,0 +1,29 @@
+<article class="ui-card flat rr">
+  <div class="rr-head">
+    <span class="rr-face"><anvil-component type="Agent_Studio.Components.Face" name="face"></anvil-component></span>
+    <a class="rr-agent" anvil:name="agent_link"><anvil-component type="Label" name="agent_name" prop:role='["strong"]'></anvil-component></a>
+    <anvil-component type="Label" name="when" prop:role='["fine-print"]'></anvil-component>
+  </div>
+  <div class="rr-cols">
+    <div class="rr-col">
+      <span class="rr-lang">English</span>
+      <anvil-component type="Label" name="q_en" prop:role='["rr-q"]' bind:text="self.item['question_en'] or '(missing)'"></anvil-component>
+      <anvil-component type="Label" name="a_en" prop:role='["rr-a"]' bind:text="self.item['answer_en'] or '(missing)'"></anvil-component>
+    </div>
+    <div class="rr-col" lang="fr">
+      <span class="rr-lang">Français</span>
+      <anvil-component type="Label" name="q_fr" prop:role='["rr-q"]' bind:text="self.item['question_fr'] or '(manquant)'"></anvil-component>
+      <anvil-component type="Label" name="a_fr" prop:role='["rr-a"]' bind:text="self.item['answer_fr'] or '(manquant)'"></anvil-component>
+    </div>
+  </div>
+  <div class="rr-note" anvil:name="note_box">
+    <label class="ui-field"><span>What should change?</span>
+      <anvil-component type="TextArea" name="note" prop:height="64"></anvil-component>
+    </label>
+  </div>
+  <anvil-component type="Label" name="message" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+  <div class="ui-row end">
+    <anvil-component type="Button" name="changes_button" prop:text="Ask for changes" prop:role='["btn"]'></anvil-component>
+    <anvil-component type="Button" name="approve_button" prop:text="Approve" prop:role='["btn", "btn-primary", "ic-check"]'></anvil-component>
+  </div>
+</article>

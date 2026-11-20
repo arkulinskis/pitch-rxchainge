@@ -1,0 +1,11 @@
+<div class="vr-host">
+<div class="vr" anvil:name="row">
+  <span class="vr-num" anvil:name="num"></span>
+  <div class="grow">
+    <anvil-component type="Label" name="note" prop:role='["strong"]' bind:text="self.item['note']"></anvil-component>
+    <anvil-component type="Label" name="meta" prop:role='["fine-print"]'></anvil-component>
+  </div>
+  <anvil-component type="Label" name="live_badge" prop:text="Live" prop:role='["badge", "badge-good"]'></anvil-component>
+  <anvil-component type="Button" name="rollback_button" prop:text="Make live" prop:role='["btn", "btn-sm", "ic-refresh"]'></anvil-component>
+</div>
+</div>

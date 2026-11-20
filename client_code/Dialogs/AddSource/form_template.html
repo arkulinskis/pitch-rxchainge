@@ -1,0 +1,26 @@
+<div class="ui as-src-dialog">
+  <h2 class="dlg-h">Add a source</h2>
+  <p class="muted">Paste text, or upload a .txt or .md file. English and French sources can sit side by side; the language is detected.</p>
+  <div class="ui-stack">
+    <div class="bi">
+      <label class="ui-field"><span>Title</span>
+        <anvil-component type="TextBox" name="title_box" prop:placeholder="Hélène's notes"></anvil-component>
+      </label>
+      <label class="ui-field"><span>Kind</span>
+        <anvil-component type="DropDown" name="kind_dd"></anvil-component>
+      </label>
+    </div>
+    <label class="ui-field"><span>Text</span>
+      <anvil-component type="TextArea" name="body_box" prop:height="220" prop:placeholder="Paste the notes here"></anvil-component>
+    </label>
+    <div class="ui-row as-src-file">
+      <anvil-component type="FileLoader" name="file_loader" prop:text="Upload a text file" prop:role='["btn", "btn-sm"]' prop:file_types=".txt,.md,text/plain,text/markdown"></anvil-component>
+      <anvil-component type="Label" name="count_label" prop:role='["fine-print"]'></anvil-component>
+    </div>
+    <anvil-component type="Label" name="message" prop:role='["msg-error"]' prop:visible="false"></anvil-component>
+    <div class="ui-row end">
+      <anvil-component type="Button" name="cancel_button" prop:text="Cancel" prop:role='["btn", "btn-ghost"]'></anvil-component>
+      <anvil-component type="Button" name="save_button" prop:text="Add source" prop:role='["btn", "btn-primary", "ic-plus"]'></anvil-component>
+    </div>
+  </div>
+</div>

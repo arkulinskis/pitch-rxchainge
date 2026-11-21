@@ -5,13 +5,14 @@ from anvil.tables import app_tables
 import anvil.tables as tables
 
 from . import common as C
-from . import Agents
+from . import Agents, Audit
 
 
 def snapshot(a):
     tops = [{"id": t.get_id(), "question_en": t["question_en"] or "", "question_fr": t["question_fr"] or "",
              "answer_en": t["answer_en"] or "", "answer_fr": t["answer_fr"] or "", "keywords": t["keywords"] or "",
-             "approved_by": t["approved_by"] or ""}
+             "approved_by": t["approved_by"] or "", "approved_at": C.iso(t["approved_at"]),
+             "used": list(t["used"] or [])}
             for t in app_tables.topics.search(tables.order_by("position"), agent=a, status="approved")]
     return {"name": a["name"] or "", "tagline_en": a["tagline_en"] or "", "tagline_fr": a["tagline_fr"] or "",
             "greeting_en": a["greeting_en"] or "", "greeting_fr": a["greeting_fr"] or "", "face": a["face"] or {},
@@ -39,6 +40,8 @@ def publish(agent_id, note=""):
     app_tables.versions.add_row(agent=a, number=n, note=C.text(note, 140) or "Version %d" % n, snapshot=snap,
                                 published_by=C.name_of(me), published_at=C.now(), is_demo=False)
     a.update(live_version=n, status="live", updated=C.now())
+    Audit.log(a, "published", C.name_of(me) + " (owner)", detail="%s: %s" % (
+        C.text(note, 140) or "Version %d" % n, "%d approved topics" % len(snap["topics"])), version=n)
     return C.ok(number=n, versions=version_list(a), slug=a["slug"])
 
 
@@ -49,6 +52,8 @@ def rollback(agent_id, number):
     if v is None:
         return C.fail("That version doesn't exist.")
     a.update(live_version=v["number"], status="live", updated=C.now())
+    Audit.log(a, "rollback", C.name_of(me) + " (owner)", detail="Version %d is live again." % v["number"],
+              version=v["number"])
     return C.ok(versions=version_list(a))
 
 
@@ -56,4 +61,5 @@ def rollback(agent_id, number):
 def unpublish(agent_id):
     a, me, role = Agents.load_agent(agent_id, need=("owner",))
     a.update(live_version=0, status="draft", updated=C.now())
+    Audit.log(a, "unpublished", C.name_of(me) + " (owner)", detail="The public page stopped answering.")
     return C.ok(versions=version_list(a))

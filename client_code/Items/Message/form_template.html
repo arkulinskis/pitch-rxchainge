@@ -2,5 +2,9 @@
   <div class="as-msg" anvil:name="bubble">
     <anvil-component type="Label" name="text" prop:role='["as-msg-text"]' bind:text="self.item['text']"></anvil-component>
     <anvil-component type="Label" name="by" prop:role='["as-msg-by"]' bind:text="self.item.get('by') or ''" bind:visible="bool(self.item.get('by'))"></anvil-component>
+    <button type="button" class="as-why-btn" anvil:name="why_btn" anvil:on-dom:click="self.why_click" aria-expanded="false"><i class="ic ic-info"></i><span anvil:name="why_text">Why this answer?</span></button>
+    <div class="as-why" anvil:name="why_box">
+      <anvil-component type="RepeatingPanel" name="why_panel" prop:item_template="Agent_Studio.Items.WhyLine" prop:role='["as-why-list"]'></anvil-component>
+    </div>
   </div>
 </div>

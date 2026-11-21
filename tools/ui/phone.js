@@ -25,7 +25,7 @@
     log.push((w > vw + 1 ? 'WIDE ' : 'ok   ') + hash + ' (' + w + ')');
   }
   try {
-    for (const h of ['#landing', '#auth', '#auth/signup', '#talk/demo-classics']) await check(h);  // add the app's public pages
+    for (const h of ['#landing', '#auth', '#auth/signup', '#talk/demo-classics', '#demo/demo-classics']) await check(h);  // add the app's public pages
     // sign up so the member pages can be checked too
     location.hash = '#auth/signup';
     await until(() => window.UI_READY && $$('.au-card input').length >= 3, 'sign-up form');
@@ -38,7 +38,7 @@
     const demoHref = await (async () => { location.hash = '#studio'; const end = Date.now() + 30000;
       while (Date.now() < end) { const a = document.querySelector('.ac'); if (window.UI_READY && a) return a.getAttribute('href'); await new Promise((r) => setTimeout(r, 150)); }
       return null; })();
-    const AGENT = demoHref ? ['overview', 'look', 'knowledge', 'topics', 'try', 'publish'].map((t) => demoHref + '/' + t) : [];
+    const AGENT = demoHref ? ['overview', 'look', 'knowledge', 'topics', 'try', 'trust', 'publish'].map((t) => demoHref + '/' + t) : [];
     for (const h of AGENT) await check(h);
     log.push(bad.length ? 'PROBLEMS: ' + bad.join(' | ') : 'PASSED');
     return { ok: !bad.length, log: log };

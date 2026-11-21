@@ -30,6 +30,13 @@
     <anvil-component type="TextBox" name="kw_box"></anvil-component>
   </label>
   <anvil-component type="Label" name="used_label" prop:role='["fine-print"]'></anvil-component>
+  <div class="te-hist" anvil:name="hist_box">
+    <button type="button" class="te-hist-btn" anvil:name="hist_btn" anvil:on-dom:click="self.hist_click" aria-expanded="false"><i class="ic ic-clock"></i><span anvil:name="hist_text">Show this topic's history</span></button>
+    <div class="te-hist-body" anvil:name="hist_body">
+      <anvil-component type="RepeatingPanel" name="hist_panel" prop:item_template="Agent_Studio.Items.AuditRow" prop:role='["tr-events", "te-hist-list"]'></anvil-component>
+      <anvil-component type="Label" name="hist_empty" prop:role='["fine-print"]'></anvil-component>
+    </div>
+  </div>
   <div class="te-review" anvil:name="review_box">
     <label class="ui-field"><span>What should change?</span>
       <anvil-component type="TextArea" name="review_note" prop:height="70" prop:placeholder="Say what to fix, so the writer knows"></anvil-component>

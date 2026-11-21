@@ -94,10 +94,24 @@ class Chat(ChatTemplate):
     def ask_button_click(self, **event_args):
         self._ask()
 
-    def ask(self, text):
-        """Ask from code (the landing page, tests)."""
+    def ask(self, text, lang=None):
+        """Ask from code (the landing page, presenter mode, tests); lang switches the language first."""
+        if lang in ("en", "fr") and lang != self._lang:
+            self.set_lang(lang)
         self.ask_box.text = text
         self._ask()
+
+    def set_lang(self, lang):
+        self._lang = lang if lang in ("en", "fr") else "en"
+        state.store_set("as.lang", self._lang)
+        self._redraw(keep=True)
+
+    def voice_on(self):
+        return self._voice
+
+    def set_voice(self, on):
+        if bool(on) != self._voice and engine.speech_ok():
+            self.voice_click(None)
 
     def _ask(self):
         q = (self.ask_box.text or "").strip()
@@ -122,7 +136,8 @@ class Chat(ChatTemplate):
         else:
             rep = r["reply"]
             by = UI_TEXT[self._lang]["approved"].format(b=rep["by"]) if rep.get("by") else ""
-            self._msgs.append({"who": "agent", "text": rep["text"], "by": by, "kind": rep.get("kind", "")})
+            self._msgs.append({"who": "agent", "text": rep["text"], "by": by, "kind": rep.get("kind", ""),
+                               "why": rep.get("why"), "lang": rep.get("lang") or self._lang})
             self.face.say(rep["text"], rep.get("lang") or self._lang, self._voice)
             self.raise_event("asked", reply=rep)
         self.msg_panel.items = self._msgs

@@ -6,7 +6,7 @@ from anvil.js import window
 from ._anvil_designer import AgentTemplate
 from ... import router, state
 
-TABS = ["overview", "look", "knowledge", "topics", "try", "publish"]
+TABS = ["overview", "look", "knowledge", "topics", "try", "trust", "publish"]
 ROLE_TEXT = {"expert": "You're the expert", "viewer": "Demo: look only", "admin": "Admin view"}
 
 
@@ -84,6 +84,9 @@ class Agent(AgentTemplate):
         if name == "try":
             from ...Tabs.Try import Try
             return Try(page=self)
+        if name == "trust":
+            from ...Tabs.Trust import Trust
+            return Trust(page=self)
         if name == "publish":
             from ...Tabs.Publish import Publish
             return Publish(page=self)

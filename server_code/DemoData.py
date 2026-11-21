@@ -16,7 +16,7 @@ from . import DemoContent, Engine
 
 PRODUCER = ("Lina Moreau", "lina.demo@example.com")
 # Tables that hold demo rows (each has an is_demo column). Children before parents.
-DEMO_TABLES = ["asks", "versions", "topics", "sources", "agents"]
+DEMO_TABLES = ["audit", "asks", "versions", "topics", "sources", "agents"]
 
 
 def state():
@@ -51,7 +51,7 @@ def fill_from_template(a, t, as_drafts=False, demo=False):
         rows.append(app_tables.topics.add_row(
             agent=a, question_en=q_en, question_fr=q_fr, answer_en=a_en, answer_fr=a_fr, keywords=kw, status=st,
             review_note="" if as_drafts else note, approved_by=t["expert"][0] if approved else "",
-            approved_at=C.now() - dt.timedelta(days=12 - i) if approved else None,
+            approved_at=C.now() - dt.timedelta(days=12 - i * 0.6) if approved else None,
             used=[t["sources"][0][0]] if a_en else [], position=i, updated=C.now() - dt.timedelta(days=10 - i),
             is_demo=demo))
     return rows
@@ -78,6 +78,7 @@ def load():
             app_tables.versions.add_row(agent=a, number=vi + 1, note=note, snapshot=snap, published_by=PRODUCER[0],
                                         published_at=C.now() - dt.timedelta(days=8 - 3 * vi), is_demo=True)
         a.update(live_version=len(t["versions"]), status="live")
+        _seed_audit(a, t, rows)
         for gi, q in enumerate(t["gaps"]):
             app_tables.asks.add_row(agent=a, question=q, lang=Engine.lang_of(q), topic_id="", answered=False,
                                     version=a["live_version"], mode="live", resolved=False,
@@ -91,8 +92,34 @@ def load():
     return counts()
 
 
+def _seed_audit(a, t, rows):
+    """A believable approval trail for a demo agent: sources, drafts, reviews, notes and publishes, in time order."""
+    from . import Audit
+    owner, expert = PRODUCER[0] + " (owner)", t["expert"][0]
+    ago = lambda d, h=0: C.now() - dt.timedelta(days=d, hours=h)  # noqa: E731
+    Audit.log(a, "agent_created", owner, detail="Blank agent.", when=ago(30), demo=True)
+    for i, (title, kind, body) in enumerate(t["sources"]):
+        Audit.log(a, "source_added", owner, detail=title, when=ago(20 - i), demo=True)
+    Audit.log(a, "expert", owner, detail="%s invited to approve answers." % expert, when=ago(19), demo=True)
+    for i, r in enumerate(rows):
+        st = r["status"]
+        Audit.log(a, "created", owner, r, when=ago(16 - i * 0.6), demo=True)
+        if st in ("in_review", "approved", "changes"):
+            Audit.log(a, "submitted", owner, r, when=ago(14 - i * 0.6), demo=True)
+        if st == "approved":
+            Audit.log(a, "approved", expert, r, "English and French answers approved.", when=r["approved_at"], demo=True)
+        elif st == "changes":
+            Audit.log(a, "changes", expert + " (expert)", r, r["review_note"] or "Please tighten this answer.",
+                      when=ago(4, i), demo=True)
+    for vi, (note, k) in enumerate(t["versions"]):
+        Audit.log(a, "published", owner, detail="%s: %d approved topics" % (note, k), version=vi + 1,
+                  when=ago(8 - 3 * vi), demo=True)
+
+
 def remove(remember=True):
     for name in DEMO_TABLES:
+        if getattr(app_tables, name, None) is None:  # audit: until the user accepts the new table
+            continue
         for r in getattr(app_tables, name).search(is_demo=True):
             r.delete()
     for u in app_tables.users.search(is_demo=True):
@@ -105,5 +132,6 @@ def remove(remember=True):
 def counts():
     out = {"users": len(app_tables.users.search(is_demo=True))}
     for name in DEMO_TABLES:
-        out[name] = len(getattr(app_tables, name).search(is_demo=True))
+        if getattr(app_tables, name, None) is not None:
+            out[name] = len(getattr(app_tables, name).search(is_demo=True))
     return out

@@ -9,7 +9,7 @@ from anvil.tables import app_tables
 import anvil.tables as tables
 
 from . import common as C
-from . import Agents, Engine
+from . import Agents, Audit, Engine
 
 STATUSES = ["draft", "in_review", "approved", "changes"]
 
@@ -38,6 +38,13 @@ def _touch(agent):
     agent["updated"] = C.now()
 
 
+def actor(me, role, a):
+    """How a person appears in the audit trail: name + role."""
+    if role == "expert":
+        return "%s (expert)" % (a["expert_name"] or C.name_of(me))
+    return "%s (%s)" % (C.name_of(me), "owner" if role == "owner" else role or "member")
+
+
 @anvil.server.callable(require_user=True)
 def save_topic(agent_id, topic_id, fields):
     """Create (topic_id None) or update a topic. Changing the words of an approved topic sends it back to draft."""
@@ -61,6 +68,7 @@ def save_topic(agent_id, topic_id, fields):
         n = len(app_tables.topics.search(agent=a))
         t = app_tables.topics.add_row(agent=a, status="draft", review_note="", approved_by="", position=n,
                                       used=used, updated=C.now(), is_demo=False, keywords=kw, **f)
+        Audit.log(a, "created", actor(me, role, a), t)
     else:
         changed = any((t[k] or "") != f[k] for k in f)
         t.update(keywords=kw, updated=C.now(), **f)
@@ -68,6 +76,9 @@ def save_topic(agent_id, topic_id, fields):
             t["used"] = used
         if changed and t["status"] == "approved":
             t.update(status="draft", approved_by="", approved_at=None)
+            Audit.log(a, "reopened", actor(me, role, a), t, "The approved wording changed, so it needs approval again.")
+        elif changed:
+            Audit.log(a, "edited", actor(me, role, a), t)
     _touch(a)
     return C.ok(topic=topic_dict(t))
 
@@ -93,6 +104,7 @@ def submit_topic(topic_id):
         return C.fail("Write or draft an answer before sending it for review.")
     t.update(status="in_review", review_note="", updated=C.now())
     _touch(t["agent"])
+    Audit.log(t["agent"], "submitted", actor(me, role, t["agent"]), t)
     return C.ok(topic=topic_dict(t))
 
 
@@ -108,11 +120,13 @@ def review_topic(topic_id, decision, note=""):
             return C.fail("Approve needs both the English and the French answer.")
         who = (a["expert_name"] or C.name_of(me)) if role == "expert" else C.name_of(me) + " (owner, no expert yet)"
         t.update(status="approved", approved_by=who, approved_at=C.now(), review_note="", updated=C.now())
+        Audit.log(a, "approved", who, t, "English and French answers approved.")
     elif decision == "changes":
         note = C.text(note, 400, multiline=True)
         if len(note) < 3:
             return C.fail("Say what should change, so the writer knows what to fix.")
         t.update(status="changes", review_note=note, approved_by="", approved_at=None, updated=C.now())
+        Audit.log(a, "changes", actor(me, role, a), t, note)
     else:
         return C.fail("Pick approve or ask for changes.")
     _touch(a)
@@ -123,6 +137,7 @@ def review_topic(topic_id, decision, note=""):
 def delete_topic(topic_id):
     t, me, role = _topic(topic_id)
     a = t["agent"]
+    Audit.log(a, "deleted", actor(me, role, a), t)
     t.delete()
     _touch(a)
     return C.ok()
@@ -176,6 +191,7 @@ def add_source(agent_id, title, kind, body):
     s = app_tables.sources.add_row(agent=a, title=title, kind=kind, lang=Engine.lang_of(body), body=body,
                                    words=len(body.split()), created=C.now(), is_demo=False)
     _touch(a)
+    Audit.log(a, "source_added", actor(me, role, a), detail=title)
     return C.ok(id=s.get_id(), lang=s["lang"], words=s["words"])
 
 
@@ -185,9 +201,11 @@ def delete_source(source_id):
     s = C.row_by_id(app_tables.sources, source_id)
     if s is None:
         return C.ok()
-    if Agents.role_of(s["agent"], me) not in ("owner", "expert"):
+    role = Agents.role_of(s["agent"], me)
+    if role not in ("owner", "expert"):
         raise anvil.server.PermissionDenied("You don't have access to that source.")
     a = s["agent"]
+    Audit.log(a, "source_removed", actor(me, role, a), detail=s["title"] or "")
     s.delete()
     _touch(a)
     return C.ok()

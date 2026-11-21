@@ -862,3 +862,112 @@ anvil-dropzone { display: contents; }
   .as-typing i { animation: none; opacity: .7; }
   .gc:hover .gc-face { transform: none; }
 }
+
+/* ---- "Why this answer?" receipt (Items/Message, Items/WhyLine) */
+.as-why-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; min-height: 32px; padding: 0 10px; border-radius: 999px;
+  border: 1px solid var(--c-line); background: var(--c-surface); color: var(--c-muted); font: 500 .8rem/1 var(--font-body); cursor: pointer; }
+.as-why-btn .ic { width: 14px; height: 14px; }
+@media (hover: hover) and (pointer: fine) { .as-why-btn:hover { color: var(--c-ink); border-color: var(--c-brand); } }
+.as-why-btn:active { transform: scale(.97); }
+.as-why-btn.on { color: var(--c-ink); border-color: var(--c-brand); background: var(--c-brand-soft); }
+.as-why { margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--c-surface); border: 1px solid var(--c-line);
+  animation: kit-in var(--dur-base) var(--ease-out) both; }
+.anvil-role-as-why-list > div { display: grid; gap: 8px; }
+.why-line { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: 2px 12px; font-size: .86rem; }
+.anvil-role-why-term { color: var(--c-muted); font-weight: 600; }
+.anvil-role-why-value { color: var(--c-ink); overflow-wrap: anywhere; }
+.anvil-role-as-why-list > div > :last-child .why-line { grid-template-columns: minmax(0, 1fr); padding-top: 8px; border-top: 1px solid var(--c-line); }
+.anvil-role-as-why-list > div > :last-child .anvil-role-why-term { display: none; }
+.anvil-role-as-why-list > div > :last-child .anvil-role-why-value { color: var(--c-good); font-weight: 600; }
+
+/* ---- Trust tab (Tabs/Trust, Items/ClusterRow, Items/AuditRow) */
+.tr-cover { display: grid; gap: 16px; margin-bottom: 26px; }
+.tr-rate { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.tr-rate .grow { flex: 1; min-width: 200px; display: grid; gap: 8px; justify-items: start; }
+.anvil-role-tr-rate-num { font: 600 3rem/1 var(--font-display); color: var(--c-ink); font-variant-numeric: lining-nums tabular-nums; }
+.tr-bar { height: 8px; border-radius: 999px; background: var(--c-bad-soft); overflow: hidden; }
+.tr-bar > span { display: block; height: 100%; width: 0; background: var(--c-good); border-radius: inherit;
+  transition: width var(--dur-slow) var(--ease-out); }
+.tr-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.tr-stat { display: grid; gap: 2px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--c-surface-2); }
+.tr-stat > span { color: var(--c-muted); font-size: .84rem; }
+.anvil-role-tr-stat-num { font: 600 1.25rem/1.1 var(--font-body); color: var(--c-ink); font-variant-numeric: lining-nums tabular-nums; }
+.tr-sub { margin-top: 4px !important; }
+.anvil-role-tr-clusters > div, .anvil-role-tr-events > div { display: grid; gap: 8px; }
+.tr-empty { padding: 28px 20px; }
+.anvil-role-tr-empty-h { font: 600 1.1rem/1.3 var(--font-display); color: var(--c-ink); margin-bottom: 4px; }
+.tr-trail-head { margin-top: 40px; }
+.tr-filter { margin-bottom: 14px; max-width: 100%; overflow-x: auto; }
+.cr { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; padding: 12px 16px; border: 1px dashed var(--c-line); border-radius: var(--radius); }
+.cr .grow { flex: 1; min-width: 200px; display: grid; gap: 2px; }
+.cr-count { font: 600 1.3rem/1 var(--font-display); color: var(--c-bad); min-width: 40px; font-variant-numeric: lining-nums tabular-nums; }
+.anvil-role-cr-theme { font-weight: 600; }
+.anvil-role-cr-ex { overflow-wrap: anywhere; }
+.ar { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 12px; padding: 12px 14px; border: 1px solid var(--c-line); border-radius: var(--radius-sm); background: var(--c-surface); }
+.ar-dot { width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--c-faint); }
+.ar.k-review .ar-dot { background: var(--c-brand); }
+.ar.k-publish .ar-dot { background: var(--c-ink); }
+.ar.approved .ar-dot { background: var(--c-good); }
+.ar.changes .ar-dot, .ar.reopened .ar-dot, .ar.deleted .ar-dot, .ar.unpublished .ar-dot { background: var(--c-bad); }
+.ar .grow { display: grid; gap: 2px; min-width: 0; }
+.ar-top { display: flex; gap: 4px 12px; justify-content: space-between; flex-wrap: wrap; }
+.anvil-role-ar-label { font-weight: 600; }
+.anvil-role-ar-topic { overflow-wrap: anywhere; }
+.anvil-role-ar-detail { white-space: pre-wrap; overflow-wrap: anywhere; }
+.anvil-role-ar-actor { font-size: .84rem; color: var(--c-good); font-weight: 600; }
+.te-hist { margin-top: 12px; }
+.te-hist-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--c-line);
+  background: none; color: var(--c-muted); font: 500 .86rem/1 var(--font-body); cursor: pointer; }
+.te-hist-btn .ic { width: 15px; height: 15px; }
+@media (hover: hover) and (pointer: fine) { .te-hist-btn:hover { color: var(--c-ink); border-color: var(--c-brand); } }
+.te-hist-body { margin-top: 10px; max-height: 260px; overflow-y: auto; }
+
+/* ---- Presenter mode (Pages/Demo, Items/DemoStep) */
+.dm-page { padding-top: 28px; padding-bottom: 48px; }
+.dm-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+.dm-lead { margin: 6px 0 0; max-width: 60ch; }
+.anvil-role-dm-guides > div { display: flex; gap: 8px; flex-wrap: wrap; }
+.dm-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 24px; align-items: start; }
+.dm-script { display: grid; gap: 14px; }
+.anvil-role-dm-progress { color: var(--c-muted); font-size: .86rem; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; }
+.dm-bar { height: 4px; border-radius: 999px; background: var(--c-surface-2); overflow: hidden; margin-top: -6px; }
+.dm-bar > span { display: block; height: 100%; width: 0; background: var(--c-brand); transition: width var(--dur-slow) var(--ease-out); }
+.anvil-role-dm-step-title { font: 600 clamp(1.4rem, 2.6vw, 1.8rem)/1.15 var(--font-display); color: var(--c-ink); }
+.dm-block { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: start; }
+.dm-tag { font: 700 .78rem/1 var(--font-body); color: var(--c-brand); padding-top: 5px; }
+.dm-say .anvil-role-dm-say-text { font: 400 1.12rem/1.5 var(--font-display); color: var(--c-ink); }
+.anvil-role-dm-do-text { color: var(--c-muted); }
+.dm-q { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--c-brand-soft); color: var(--c-ink); }
+.dm-q .ic { width: 18px; height: 18px; margin-top: 2px; color: var(--c-brand); flex: none; }
+.anvil-role-dm-q-text { font-weight: 600; overflow-wrap: anywhere; }
+.anvil-role-dm-result { padding: 8px 12px; border-radius: var(--radius-sm); font-size: .92rem; font-weight: 600; }
+.anvil-role-dm-result.anvil-role-ok { background: var(--c-good-soft); color: var(--c-good); }
+.anvil-role-dm-result.anvil-role-off { background: var(--c-warn-soft); color: var(--c-warn); }
+.dm-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding-top: 4px; }
+.dm-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.anvil-role-dm-steps > div { display: grid; gap: 4px; padding-top: 12px; border-top: 1px solid var(--c-line); }
+.ds { display: flex; gap: 10px; align-items: center; width: 100%; min-height: 40px; padding: 4px 10px; border: 0; border-radius: var(--radius-sm);
+  background: none; color: var(--c-muted); font: 500 .92rem/1.2 var(--font-body); text-align: left; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .ds:hover { background: var(--c-surface-2); color: var(--c-ink); } }
+.ds-num { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--c-line); font-size: .8rem; flex: none;
+  font-variant-numeric: lining-nums tabular-nums; }
+.ds.done .ds-num { border-color: var(--c-good); color: var(--c-good); }
+.ds.on { background: var(--c-brand-soft); color: var(--c-ink); }
+.ds.on .ds-num { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-brand-ink); }
+.lp-present { margin: 16px 0 0; font-size: .95rem; }
+.lp-present a { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; }
+.lp-present .ic { width: 16px; height: 16px; }
+
+@media (max-width: 960px) {
+  .dm-grid { grid-template-columns: minmax(0, 1fr); }
+  .dm-chat { order: -1; }
+}
+@media (max-width: 720px) {
+  .why-line { grid-template-columns: minmax(0, 1fr); }
+  .anvil-role-tr-rate-num { font-size: 2.4rem; }
+  .dm-actions .ui-spacer { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .as-why { animation-name: kit-fade; }
+  .tr-bar > span, .dm-bar > span { transition: none; }
+}

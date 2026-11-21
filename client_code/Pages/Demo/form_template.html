@@ -1,0 +1,53 @@
+<anvil-form layout="Agent_Studio.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="ui-wrap dm-page">
+      <div class="dm-head">
+        <div>
+          <anvil-component type="Label" name="title" prop:text="Presenter mode" prop:role='["page-title"]'></anvil-component>
+          <p class="muted dm-lead">A scripted walk-through for showing Agent Studio to someone: what to say, what to click, and a live guide that answers on cue. Use the arrow keys to move between steps.</p>
+        </div>
+        <anvil-component type="RepeatingPanel" name="guide_panel" prop:item_template="Agent_Studio.Items.GuidePick" prop:role='["dm-guides"]'></anvil-component>
+      </div>
+      <div class="ui-empty" anvil:name="missing">
+        <i class="ic ic-info"></i>
+        <h2>Presenter mode needs the demo guides</h2>
+        <anvil-component type="Label" name="missing_text" prop:role='["muted"]'></anvil-component>
+        <a class="ui-btn" href="#landing">Back to the start</a>
+      </div>
+      <div class="dm-grid" anvil:name="main">
+        <section class="dm-script ui-card" aria-label="Script">
+          <anvil-component type="Label" name="progress" prop:role='["dm-progress"]'></anvil-component>
+          <div class="dm-bar" aria-hidden="true"><span anvil:name="bar_fill"></span></div>
+          <anvil-component type="Label" name="step_title" prop:role='["dm-step-title"]'></anvil-component>
+          <div class="dm-block dm-say">
+            <span class="dm-tag">Say</span>
+            <anvil-component type="Label" name="say" prop:role='["dm-say-text"]'></anvil-component>
+          </div>
+          <div class="dm-block">
+            <span class="dm-tag">Do</span>
+            <anvil-component type="Label" name="do" prop:role='["dm-do-text"]'></anvil-component>
+          </div>
+          <div class="dm-q" anvil:name="q_row">
+            <i class="ic ic-chat"></i>
+            <anvil-component type="Label" name="question" prop:role='["dm-q-text"]'></anvil-component>
+          </div>
+          <anvil-component type="Label" name="result" prop:role='["dm-result"]'></anvil-component>
+          <div class="dm-actions">
+            <anvil-component type="Button" name="back_button" prop:text="Back" prop:role='["btn", "btn-ghost", "ic-back"]'></anvil-component>
+            <span class="ui-spacer"></span>
+            <anvil-component type="Button" name="run_button" prop:text="Run this step" prop:role='["btn", "btn-primary", "ic-volume"]'></anvil-component>
+            <anvil-component type="Button" name="next_button" prop:text="Next" prop:role='["btn", "ic-arrow"]'></anvil-component>
+          </div>
+          <div class="dm-links" anvil:name="behind_links">
+            <a class="ui-btn btn-sm" href="#studio"><i class="ic ic-grid"></i>Open the Studio</a>
+            <a class="ui-btn btn-sm" anvil:name="public_link" target="_blank" rel="noopener"><i class="ic ic-external"></i>Public page</a>
+          </div>
+          <anvil-component type="RepeatingPanel" name="step_panel" prop:item_template="Agent_Studio.Items.DemoStep" prop:role='["dm-steps"]'></anvil-component>
+        </section>
+        <div class="dm-chat">
+          <anvil-component type="Agent_Studio.Components.Chat" name="chat"></anvil-component>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

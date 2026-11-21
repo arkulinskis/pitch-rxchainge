@@ -19,6 +19,7 @@ PAGES = {
     "agent": ("user", "Agent"),
     "review": ("user", "Review"),
     "talk": (None, "Talk"),
+    "demo": (None, "Presenter mode"),
     "profile": ("user", "Your profile"),
     "admin": ("admin", "Admin"),
 }
@@ -47,6 +48,9 @@ def _form(name):
     if name == "talk":
         from .Pages.Talk import Talk
         return Talk
+    if name == "demo":
+        from .Pages.Demo import Demo
+        return Demo
     if name == "profile":
         from .Pages.Profile import Profile
         return Profile

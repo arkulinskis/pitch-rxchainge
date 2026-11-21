@@ -38,6 +38,9 @@ class TopicEditor(TopicEditorTemplate):
         for box in (self.q_en, self.q_fr, self.a_en, self.a_fr, self.kw_box, self.review_note):
             box.enabled = self.can_edit
         state.set_control_attr(self.kw_box, "aria-label", "Keywords")
+        self.hist_box.visible = bool(self.topic.get("id"))
+        self.hist_body.visible = False
+        self._hist_loaded = False
         self._draw()
 
     def _draw(self):
@@ -84,6 +87,20 @@ class TopicEditor(TopicEditorTemplate):
         self.topic = r["topic"]
         self.changed = True
         return True
+
+    # ---- history (the audit trail of this one topic, loaded on first open)
+    def hist_click(self, event):
+        on = not self.hist_body.visible
+        if on and not self._hist_loaded:
+            r = anvil.server.call("topic_history", self.topic.get("id"))
+            ev = [dict(e, compact=True) for e in r.get("events") or []]
+            self.hist_panel.items = ev
+            self.hist_empty.text = "" if ev else "No recorded steps yet: the history starts with the next save, review or approval."
+            self.hist_empty.visible = not ev
+            self._hist_loaded = True
+        self.hist_body.visible = on
+        anvil.js.get_dom_node(self.hist_text).textContent = "Hide the history" if on else "Show this topic's history"
+        anvil.js.get_dom_node(self.hist_btn).setAttribute("aria-expanded", "true" if on else "false")
 
     # ---- drafting
     def _draft(self, lang):

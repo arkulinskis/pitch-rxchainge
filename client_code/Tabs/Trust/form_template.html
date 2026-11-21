@@ -1,0 +1,55 @@
+<div class="tb tr">
+  <div class="tb-head">
+    <div>
+      <h2 class="tb-h">Coverage</h2>
+      <p class="muted tb-lead">How much of what people ask the public agent it can answer, and the themes it can't yet. Good agents leave fewer than 1 in 10 questions unanswered.</p>
+    </div>
+  </div>
+
+  <div class="tr-cover ui-card flat">
+    <div class="tr-rate">
+      <anvil-component type="Label" name="rate" prop:role='["tr-rate-num"]'></anvil-component>
+      <div class="grow">
+        <anvil-component type="Label" name="rate_line" prop:role='["strong"]'></anvil-component>
+        <anvil-component type="Label" name="verdict" prop:role='["badge"]'></anvil-component>
+      </div>
+    </div>
+    <div class="tr-bar" aria-hidden="true"><span anvil:name="bar_fill"></span></div>
+    <div class="tr-stats">
+      <div class="tr-stat"><anvil-component type="Label" name="s_en" prop:role='["tr-stat-num"]'></anvil-component><span>Unanswered in English</span></div>
+      <div class="tr-stat"><anvil-component type="Label" name="s_fr" prop:role='["tr-stat-num"]'></anvil-component><span>Unanswered in French</span></div>
+      <div class="tr-stat"><anvil-component type="Label" name="s_missing_fr" prop:role='["tr-stat-num"]'></anvil-component><span>Topics missing French</span></div>
+      <div class="tr-stat"><anvil-component type="Label" name="s_unpub" prop:role='["tr-stat-num"]'></anvil-component><span>Approved, not yet published</span></div>
+      <div class="tr-stat"><anvil-component type="Label" name="s_wait" prop:role='["tr-stat-num"]'></anvil-component><span>Waiting for the expert</span></div>
+    </div>
+  </div>
+
+  <h3 class="tb-h3 tr-sub">Unanswered themes</h3>
+  <anvil-component type="RepeatingPanel" name="cluster_panel" prop:item_template="Agent_Studio.Items.ClusterRow" prop:role='["tr-clusters"]'></anvil-component>
+  <div class="ui-empty tr-empty" anvil:name="no_clusters">
+    <i class="ic ic-check"></i>
+    <h3>No open gaps</h3>
+    <p>Every question people asked is covered, or the team has dealt with it.</p>
+  </div>
+
+  <div class="tb-head tr-trail-head">
+    <div>
+      <h2 class="tb-h">Audit trail</h2>
+      <p class="muted tb-lead">Every step behind the public answers: who wrote, sent, approved, changed or published what, and when. Nothing here can be edited.</p>
+    </div>
+    <anvil-component type="Button" name="csv_button" prop:text="Download CSV" prop:role='["btn", "ic-download"]'></anvil-component>
+  </div>
+  <div class="ui-seg tr-filter" role="group" aria-label="Show events">
+    <button type="button" data-f="all" anvil:name="f_all" anvil:on-dom:click="self.filter_click">All</button>
+    <button type="button" data-f="review" anvil:name="f_review" anvil:on-dom:click="self.filter_click">Reviews</button>
+    <button type="button" data-f="content" anvil:name="f_content" anvil:on-dom:click="self.filter_click">Content</button>
+    <button type="button" data-f="publish" anvil:name="f_publish" anvil:on-dom:click="self.filter_click">Publishing</button>
+  </div>
+  <anvil-component type="RepeatingPanel" name="event_panel" prop:item_template="Agent_Studio.Items.AuditRow" prop:role='["tr-events"]'></anvil-component>
+  <anvil-component type="Button" name="more_button" prop:text="Show all" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+  <div class="ui-empty tr-empty" anvil:name="no_events">
+    <i class="ic ic-shield"></i>
+    <anvil-component type="Label" name="no_events_h" prop:role='["tr-empty-h"]'></anvil-component>
+    <anvil-component type="Label" name="no_events_p" prop:role='["muted"]'></anvil-component>
+  </div>
+</div>

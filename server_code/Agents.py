@@ -133,6 +133,9 @@ def create_agent(template_key="", name=""):
     if t:
         DemoData.fill_from_template(a, t, as_drafts=True)
         a["name"] = name
+    from . import Audit
+    Audit.log(a, "agent_created", C.name_of(me) + " (owner)",
+              detail=("From the %s template: its topics start as drafts." % t["name"]) if t else "Blank agent.")
     return C.ok(id=a.get_id())
 
 
@@ -156,6 +159,9 @@ def copy_agent(agent_id):
                                   answer_en=t["answer_en"], answer_fr=t["answer_fr"], keywords=t["keywords"],
                                   status="draft", review_note="", approved_by="", used=list(t["used"] or []),
                                   position=t["position"], updated=C.now(), is_demo=False)
+    from . import Audit
+    Audit.log(a, "agent_created", C.name_of(me) + " (owner)",
+              detail="Copied from %s: every topic is a draft until the expert approves it." % (src["name"] or "a demo"))
     return C.ok(id=a.get_id())
 
 
@@ -235,21 +241,27 @@ def set_expert(agent_id, name, email, title=""):
     """Invite the expert who approves topics. They sign in (or sign up) with this email to review."""
     a, me, role = load_agent(agent_id, need=("owner",))
     name, email = C.text(name, 60), C.text(email, 120).lower()
+    from . import Audit
     if not email:
         a.update(expert_name="", expert_email="", expert_title="", updated=C.now())
+        Audit.log(a, "expert", C.name_of(me) + " (owner)", detail="Expert removed: the owner approves for now.")
         return C.ok(agent=agent_full(a, role))
     if len(name) < 2:
         return C.fail("Add the expert's name (at least 2 characters).")
     if not re.match(r"^[^@\s]+@[^@\s]+\.[a-z]{2,}$", email):
         return C.fail("That email doesn't look right. Check it and try again.")
     a.update(expert_name=name, expert_email=email, expert_title=C.text(title, 80), updated=C.now())
+    Audit.log(a, "expert", C.name_of(me) + " (owner)", detail="%s invited to approve answers." % name)
     return C.ok(agent=agent_full(a, role))
 
 
 @anvil.server.callable(require_user=True)
 def delete_agent(agent_id):
     a, me, role = load_agent(agent_id, need=("owner",))
-    for table in (app_tables.asks, app_tables.versions, app_tables.topics, app_tables.sources):
+    tables_ = [app_tables.asks, app_tables.versions, app_tables.topics, app_tables.sources]
+    if getattr(app_tables, "audit", None) is not None:
+        tables_.insert(0, app_tables.audit)
+    for table in tables_:
         for r in table.search(agent=a):
             r.delete()
     a.delete()

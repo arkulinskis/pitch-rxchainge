@@ -145,6 +145,18 @@ tools/                     check.py, assets.py, build_icons.py, make_icons.py, u
   demo-specialnight. Users' copies come back as drafts. Asks on demo agents are flagged is_demo.
 - **Editor** = Pages/Agent (one get_agent call, header) + Tabs/* built one at a time into a LinearPanel;
   `page.reload(tab)` refreshes everything; tab switches use router.replace (no page reload).
+- **Trust layer (2026-11-20)**: `server_code/Audit.py`. `Audit.log(agent, action, actor, topic, detail, version)` is
+  called from Topics/Versions/Agents (create, edit, reopened, submitted, approved, changes, deleted, source_added/removed,
+  expert, agent_created, published, rollback, unpublished) and never raises (the `audit` table may not exist until the
+  user accepts the schema: getattr(app_tables, "audit", None)). `get_trust` = coverage (Audit.coverage: live asks only,
+  greedy token-overlap clusters of open gaps) + events; `topic_history`; `resolve_gaps(agent_id, ids)`. UI:
+  Tabs/Trust (+ Items/ClusterRow, Items/AuditRow), TopicEditor history (lazy). Demo trail seeded by DemoData._seed_audit.
+- **Why this answer?**: Talk.answer returns `why` facts (kind, version, matched questions, approved_by/at, used sources,
+  strength, shared words, refused subject); Versions.snapshot now stores `used` + `approved_at` per topic (older
+  snapshots just lack them). Items/Message words them in the reply's language (Items/WhyLine rows).
+- **Presenter mode** `#demo/<slug>` (Pages/Demo, Items/DemoStep, public): Talk.get_demo_script picks each step's
+  question from the live snapshot and keeps it only if `answer()` gives the expected kind. Chat gained
+  `ask(text, lang)`, `set_lang`, `set_voice`.
 - Tests read `innerText` where hidden Labels matter (a hidden Label still has textContent).
 
 ## Recipes

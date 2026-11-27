@@ -64,6 +64,12 @@ drafting by picking the source sentences that fit the question in the agent's to
 
 **Admin**: the template's overview (people, agents made by people, feedback), users, demo data on/off.
 
+## Pilots ($1,500 setup + $300/mo, sold by hand)
+
+When the App Secret `sales_link` holds a https link (a Stripe Payment Link or booking page), the Landing page hero
+shows **Start a pilot for your business ($1,500 setup + $300/mo)**. Without it nothing changes. Server:
+`server_code/Sales.py` (`sales_link()`, public, returns the link or None). Sold through Addanapp.
+
 ## Setting it up in Anvil (once)
 
 1. Anvil editor: **Create app → Clone from GitHub**, paste `https://github.com/arkulinskis/pitch-rxchainge`.

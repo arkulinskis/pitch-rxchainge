@@ -18,6 +18,10 @@ class Landing(LandingTemplate):
         if me:
             state.set_attr(self.band_link, "href", "#studio")
         guides = anvil.server.call("get_landing")["guides"]
+        pilot = anvil.server.call("sales_link")   # pilots are sold by hand: shown only with the App Secret sales_link
+        self.pilot_line.visible = bool(pilot)
+        if pilot:
+            state.set_attr(self.pilot_link, "href", pilot)
         self.guides_panel.items = guides
         self.hero_demo.setup(guides)
         self.hero_demo.visible = bool(guides)

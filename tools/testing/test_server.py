@@ -293,10 +293,19 @@ r = anvil.server.ENDPOINTS["/schema-check"](tables="users, topics,no_such_table"
 json.dumps(r)
 assert "email" in r["tables"]["users"] and "answer_fr" in r["tables"]["topics"] and r["tables"]["no_such_table"] is None, r
 
+# ---------------------------------------------------------------------------------- pilot link (Sales.py, sold by hand)
+import anvil.secrets  # noqa: E402
+assert anvil.server.call("sales_link") is None, "hidden without the App Secret"
+anvil.secrets.SECRETS["sales_link"] = "javascript:alert(1)"
+assert anvil.server.call("sales_link") is None, "only https links"
+anvil.secrets.SECRETS["sales_link"] = " https://buy.stripe.com/test_123 "
+assert anvil.server.call("sales_link") == "https://buy.stripe.com/test_123"
+del anvil.secrets.SECRETS["sales_link"]
+
 # ---------------------------------------------------------------------------------- every callable is covered by a permission check
 # A callable that changes data without require_user / a C.require_* check is a security hole. List the public ones here.
 PUBLIC = {"log_client_error", "get_demo_script", "get_me", "session_ping", "submit_feedback", "legal_state", "legal_accept",
-          "get_landing", "get_public_agent", "talk_ask"}
+          "get_landing", "get_public_agent", "talk_ask", "sales_link"}
 for name, (f, need) in sorted(anvil.server.CALLABLES.items()):
     if name in PUBLIC:
         continue

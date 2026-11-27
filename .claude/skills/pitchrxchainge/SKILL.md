@@ -170,6 +170,9 @@ tools/                     check.py, assets.py, build_icons.py, make_icons.py, u
   (`python -I APP_MAKER/tools/loaders.py apply pitchrxchainge <preset>`), `LEGAL_THEME` in startup.py.
 - **Icon:** edit theme/assets/icon.svg, `python -I tools/make_icons.py`, then `python tools/assets.py`.
 
+- **Pilot link (sold by hand, branch `payments`):** `server_code/Sales.py` `sales_link()` reads the App Secret
+  `sales_link` (https only, else None, listed in PUBLIC); Pages/Landing shows `pilot_line` only when it returns a link.
+
 ## Gotchas
 
 - The local App Server (1.18) lags hosted Anvil: no `HtmlComponent.attrs` (use state.set_attr), `Notification(role=)`
